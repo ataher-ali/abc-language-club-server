@@ -89,7 +89,7 @@ async function run() {
     //selected_course
     app.post('/selected_course', async(req,res)=>{
       const selected_course_Data = req.body
-      const query = {corse_id: selected_course_Data.corse_id } 
+      const query = {course_uid: selected_course_Data.course_uid,} 
       const existingUser = await selected_course.findOne(query)
 
       if (existingUser) { 
@@ -108,6 +108,15 @@ async function run() {
     const results = await selected_course.find(query).toArray();
     res.send(results);
   });
+
+  app.delete('/selected_course/:id', async (req, res) => {
+    const id = req.params.id;
+    // console.log(id);
+    const query = { _id: new ObjectId(id) }
+    const result = await selected_course.deleteOne(query);
+    res.send(result);
+  })
+
 
 
     await client.connect();
