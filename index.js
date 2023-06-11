@@ -59,6 +59,16 @@ async function run() {
       res.send(result)
     })
 
+
+    app.put('/user/:id', async (req, res) => {
+      const id = req.params.id;
+      const updatedUser = req.body;
+      const filter = { email: id };
+    
+      const result = await users.updateOne(filter, { $set: updatedUser });
+      res.send(result);
+    });
+
     
 
     //courses
@@ -116,6 +126,7 @@ async function run() {
     const result = await selected_course.deleteOne(query);
     res.send(result);
   })
+
 
 
 
