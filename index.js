@@ -1,18 +1,24 @@
-const express = require("express");
 require("dotenv").config();
-const app = express();
+const express = require("express");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const port = process.env.PORT || 4040;
 
+const app = express();
 var cors = require("cors");
 
-app.use(cors());
+const corsOptions ={
+  origin:'*', 
+  credentials:true,
+  optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("summer-camp-school | abc server on!");
 });
 
-const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 //mongo DB
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.5bmhisx.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -26,7 +32,7 @@ const client = new MongoClient(uri, {
 });
 async function run() {
   try {
-    await client.connect();
+    
     const users = client.db("abc_LC").collection("users");
     const courses = client.db("abc_LC").collection("abc");
     const selected_course = client.db("abc_LC").collection("selected_course");
