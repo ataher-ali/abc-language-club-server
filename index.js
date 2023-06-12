@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("abc server on!");
+  res.send("summer-camp-school | abc server on!");
 });
 
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
@@ -21,6 +21,7 @@ const client = new MongoClient(uri, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
+
   },
 });
 async function run() {
